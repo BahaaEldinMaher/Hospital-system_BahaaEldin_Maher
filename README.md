@@ -26,12 +26,9 @@ This Hospital System is a comprehensive solution designed to streamline various 
 
 ## Technologies Used
 
-- **Programming Language:** [Specify the programming language(s) used]
-- **Database:** [Specify the database management system used]
-- **Web Framework:** [Specify the web framework, if applicable]
-- **Frontend:** [Specify frontend technologies, if applicable]
-- **Authentication:** [Specify authentication and security technologies used]
-- **Other Dependencies:** [List any other important dependencies or libraries]
+- **Programming Language:** JavaScript
+- **Database:** MySQL
+- **Web Technologies:** HTML, CSS
 
 
 ## License
