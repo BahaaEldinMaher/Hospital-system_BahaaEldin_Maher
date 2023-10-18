@@ -6,6 +6,7 @@ Welcome to the Hospital System project, developed by Bahaa Eldin Maher.
 - [Introduction](#introduction)
 - [Features](#features)
 - [Technologies Used](#technologies-used)
+- [License](#License)
 
 
 ## Introduction
@@ -31,3 +32,9 @@ This Hospital System is a comprehensive solution designed to streamline various 
 - **Frontend:** [Specify frontend technologies, if applicable]
 - **Authentication:** [Specify authentication and security technologies used]
 - **Other Dependencies:** [List any other important dependencies or libraries]
+
+
+## License
+This Project is made by:
+BahaaEldin Maher   Hesham Atef 
+Abdelrahman Nasser Sandra Ezzat Rezk
