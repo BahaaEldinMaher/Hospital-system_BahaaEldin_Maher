@@ -1,0 +1,8 @@
+How to run the app : 
+
+- download the project
+- make sure you [download and install node](https://nodejs.org/dist/v14.17.1/node-v14.17.1-x64.msi)
+- open a cmd in the root of the project folder
+- run `npm install`
+- after it finishs run `npm run dev` to open the app in development mode, if you need to run the app in production mode use `npm run start`
+- after the app runs, open `http://localhost:3000/` in the browser

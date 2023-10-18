@@ -1,0 +1,115 @@
+<!-- 
+    this is to import the bootstrap package, 
+    please import it in any page you want to use boostrap
+
+    for more info: https://getbootstrap.com/
+ -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+	crossorigin="anonymous"
+/>
+<!-- 
+    this is just a ready to use navbar.
+    please check https://getbootstrap.com/docs/5.0/components/navbar/ for more info
+-->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+	<div class="container-fluid">
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+				<li class="nav-item">
+					<a class="nav-link active" aria-current="page" href="/">Home</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/hospitals">Hospitals</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/rooms">All Rooms</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/doctor">All Doctors</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/patient">All Patients</a>
+				</li>
+					<li class="nav-item">
+					<a class="nav-link" href="/diagnosis">Patient Diagnosis</a>
+				</li>
+					<li class="nav-item">
+					<a class="nav-link" href="/bill">Bill</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</nav>
+
+
+<div class="container">
+	{# this is the TABLE code #}
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<td>ID</td>
+                <td>Patient First Name</td>
+                <td>Patient Last Name</td>
+				<td>Treatment</td>
+				<td>Days</td>
+                <td>Disease</td>
+                <td></td>
+			</tr>
+		</thead>
+
+		<tbody>
+			<!-- the "rows" var came from hospitals.js file, around line 13 -->
+			{% for row in dia_rows %}
+			<tr>
+				<td>{{ row.p_ID }}</td>
+				<td>{{ row.pat_first }}</td>
+				<td>{{ row.pat_last }}</td>
+                <td>{{ row.dia_treat }}</td>
+                <td>{{ row.dia_days }}</td>
+                <td>{{ row.dia_disease }}</td>
+				<td>
+					<form method="POST" action="/diagnosis/delete/{{row.dia_no}}">
+						<button class="btn btn-info btn-danger"> 
+							Delete
+						</button>
+					</form>
+				</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+	{# <br /> just to make some spacing between the table and the form #}
+	<br />
+	<br />
+
+	{# this is the FORM (all inputs that the user will fill) code #}
+	<form method="POST">
+	<div class="mb-3">
+			<label class="form-label">Patient</label>
+    	<select name="p_ID" class="form-control">
+			{% for h in rows %}
+			<option value="{{ h.pat_id }}">{{ h.pat_first }}</option>
+			{% endfor %}
+		</select>
+		</div>
+		<div class="mb-3">
+			<label class="form-label">Treatment</label>
+			<input class="form-control" name="dia_treat" placeholder="Treatment" autocomplete="off"/>
+		</div>
+		<div class="mb-3">
+			<label class="form-label">Number of Days</label>
+			<input class="form-control" name="dia_days" placeholder="Number of Days" autocomplete="off"/>
+
+		</div>
+		<div class="mb-3">
+			<label class="form-label">Disease</label>
+	    	<input class="form-control" name="dia_disease" placeholder="Disease" autocomplete="off"/>
+		</div>
+		<br />
+		<button class="btn btn-primary">Send</button>
+	</form>
+</div>

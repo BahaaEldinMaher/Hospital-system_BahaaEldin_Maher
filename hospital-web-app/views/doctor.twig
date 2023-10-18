@@ -1,0 +1,133 @@
+<!-- 
+    this is to import the bootstrap package, 
+    please import it in any page you want to use boostrap
+
+    for more info: https://getbootstrap.com/
+ -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+	crossorigin="anonymous"
+/>
+<!-- 
+    this is just a ready to use navbar.
+    please check https://getbootstrap.com/docs/5.0/components/navbar/ for more info
+-->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+	<div class="container-fluid">
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+				<li class="nav-item">
+					<a class="nav-link active" aria-current="page" href="/">Home</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/hospitals">Hospitals</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/rooms">All Rooms</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/doctor">All Doctors</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/patient">All Patients</a>
+				</li>
+					<li class="nav-item">
+					<a class="nav-link" href="/diagnosis">Patient Diagnosis</a>
+				</li>
+					<li class="nav-item">
+					<a class="nav-link" href="/bill">Bill</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</nav>
+
+<div class="container">
+
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<td>ID</td>
+				<td>First Name</td>
+				<td>Last Name</td>
+				<td>Gender</td>
+				<td>City</td>
+				<td>Location</td>
+				<td>E-mail</td>
+				<td>Specialization</td>
+				<td>Hospital Number</td>
+				<td></td>
+			</tr>
+		</thead>
+
+		<tbody>
+			<!-- the "rows" var came from hospitals.js file, around line 13 -->
+			{% for row in doctor_rows %}
+			<tr>
+				<td>{{row.doc_id}}</td>
+				<td>{{row.doc_first}}</td>
+				<td>{{row.doc_last}}</td>
+				<td>{{row.doc_gender}}</td>
+				<td>{{row.doc_city}}</td>
+				<td>{{row.doc_loc}}</td>
+				<td>{{row.doc_email}}</td>
+				<td>{{row.doc_spec}}</td>
+				<td>{{row.hos_id}}</td>
+				<td>
+					<form method="POST" action="/doctor/delete/{{row.doc_id}}">
+						<button class="btn btn-info btn-danger"> 
+							Delete
+						</button>
+					</form>
+				</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+	<br />
+	<br />
+
+	<form method="POST">
+		<div class="mb-3">
+			<label class="form-label">Hospital</label>
+			<select name="hos_id" class="form-control">
+				{% for h in hospitals_rows %}
+				<option value="{{ h.hos_no }}">{{ h.hos_name }}</option>
+				{% endfor %}
+			</select>
+		</div>
+		<div class="mb-3">
+			<label class="form-label">First Name</label>
+			<input class="form-control" name="doc_first" placeholder="First Name" autocomplete="off"/>
+		</div>
+		<div class="mb-3">
+			<label class="form-label">Last Name</label>
+			<input class="form-control" name="doc_last" placeholder="Last Name" autocomplete="off"/>
+		</div>
+		<div class="mb-3">
+			<label class="form-label">Gender</label>
+			<input class="form-control" name="doc_gender" placeholder="Gender" autocomplete="off"/>
+		</div>
+		<div class="mb-3">
+			<label class="form-label">City</label>
+			<input class="form-control" name="doc_city" placeholder="City" autocomplete="off"/>
+		</div>
+		<div class="mb-3">
+			<label class="form-label">Location</label>
+			<input class="form-control" name="doc_loc" placeholder="Location" autocomplete="off"/>
+		</div>
+		<div class="mb-3">
+			<label class="form-label">E-mail</label>
+			<input class="form-control" name="doc_email" placeholder="E-mail" autocomplete="off" />
+		</div>
+		<div class="mb-3">
+			<label class="form-label">Specialization</label>
+			<input class="form-control" name="doc_spec" placeholder="Specialization" autocomplete="off" />
+		</div>
+		<br />
+		<button class="btn btn-primary btn-block">Send</button>
+	</form>
+</div>

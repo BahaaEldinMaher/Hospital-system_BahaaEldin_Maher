@@ -1,0 +1,234 @@
+<link rel="preconnect" href="https://fonts.gstatic.com" />
+<link
+	href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap"
+	rel="stylesheet"
+/>
+
+<style>
+	* {
+		box-sizing: border-box;
+	}
+	body {
+		padding: 0;
+		margin: 0;
+		background-color: #ddd;
+		font-size: 16px;
+		font-family: "Poppins", sans-serif;
+	}
+
+	.paper {
+		width: calc(2480px * 0.3);
+		height: calc(3508px * 0.3);
+		background-color: #fff;
+		box-shadow: 0 3px 6px rgb(0 0 0 / 16%), 0 3px 6px rgb(0 0 0 / 23%);
+		margin: 40px auto;
+		padding: 20px;
+	}
+
+	.hospital {
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+	}
+	.hospital img {
+		width: 70px;
+		margin-right: 15px;
+	}
+	.hospital .name {
+		font-weight: bold;
+		font-size: 18px;
+		margin-bottom: 5px;
+	}
+	.persons-info {
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: flex-start;
+	}
+	.patient-info,
+	.doctor-info {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+	}
+	.doctor-info {
+		padding-left: 20px;
+	}
+
+	.data-pair {
+		display: flex;
+		justify-content: flex-start;
+		align-items: flex-start;
+		flex: 1;
+		width: 100%;
+	}
+	.data-pair .key {
+		width: 180px;
+	}
+	.data-pair .value {
+		font-weight: bold;
+		flex: 1;
+	}
+
+	.diagnosis-table,
+	.bill-table {
+		margin-top: 30px;
+	}
+	h1 {
+		font-size: 40px;
+		text-align: center;
+	}
+	h3 {
+		margin: 0;
+		padding: 0;
+		margin-bottom: 10px;
+	}
+
+	table,
+	td,
+	th {
+		border: 1px solid #ddd;
+		text-align: left;
+	}
+
+	thead,
+	tfoot {
+		font-style: italic;
+	}
+	tfoot {
+		font-weight: bold;
+	}
+
+	table {
+		border-collapse: collapse;
+		width: 100%;
+	}
+
+	th,
+	td {
+		padding: 15px;
+	}
+</style>
+
+<div class="paper">
+	<div class="hospital">
+		<img src="/images/hospital-buildings.svg" alt="icon" />
+		<div class="info">
+		<div class="name">Hospital {{ patient_data.hos_num }}</div>
+		</div>
+	</div>
+	<h1>Patient's Report</h1>
+
+	<div class="persons-info">
+		<div class="patient-info">
+			<h3>Patient's info</h3>
+			<div class="data-pair">
+				<div class="key">Full name</div>
+				<div class="value">
+					{{ patient_data.pat_first }} {{ patient_data.pat_last }}
+				</div>
+			</div>
+			<div class="data-pair">
+				<div class="key">Gender</div>
+				<div class="value">{{ patient_data.pat_gender }}</div>
+			</div>
+			<div class="data-pair">
+				<div class="key">Location</div>
+				<div class="value">
+					{{ patient_data.pat_city }} {{ patient_data.pat_loc }}
+				</div>
+			</div>
+			<div class="data-pair">
+				<div class="key">Birth date</div>
+				<div class="value">
+					{{ patient_data.pat_birth }}
+				</div>
+			</div>
+			<div class="data-pair">
+				<div class="key">Phone</div>
+				<div class="value">
+					{{ patient_data.pat_phoneNum }}
+				</div>
+			</div>
+			<div class="data-pair">
+				<div class="key">Room number</div>
+				<div class="value">Room #{{ patient_data.roomNO }}</div>
+			</div>
+		</div>
+		<div class="doctor-info">
+			<h3>Doctor's info</h3>
+			<div class="data-pair">
+				<div class="key">Full name</div>
+				<div class="value">
+					{{ patient_data.doc_first }} {{ patient_data.doc_last }}
+				</div>
+			</div>
+			<div class="data-pair">
+				<div class="key">Email</div>
+				<div class="value">
+					{{ patient_data.doc_email }}
+				</div>
+			</div>
+			<div class="data-pair">
+				<div class="key">Speciality</div>
+				<div class="value">
+					{{ patient_data.doc_spec }}
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="diagnosis-table">
+		<h3>Patient's diagnosis</h3>
+		<table>
+			<thead>
+				<tr>
+					<td>#</td>
+					<td>disease</td>
+					<td>days</td>
+					<td>treatment</td>
+				</tr>
+			</thead>
+			<tbody>
+				{% for row in diagnosis_rows %}
+				<tr>
+					<td>{{ loop.index }}</td>
+					<td>{{ row.dia_disease }}</td>
+					<td>{{ row.dia_days }} days</td>
+					<td>
+						{{ row.dia_treat }}
+					</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+
+	<div class="bill-table">
+		<h3>Patient's Bill</h3>
+		<table>
+			<thead>
+				<tr>
+					<td>#</td>
+					<td>Amount</td>
+					<td>Bill date</td>
+				</tr>
+			</thead>
+			<tbody>
+				{% set total = 0 %} {% for row in bills_rows %}
+				<tr>
+					<td>{{ loop.index }}</td>
+					<td>{{ row.bill_amount }} EGP</td>
+					<td>{{ row.bill_date }}</td>
+				</tr>
+				{% set total = total + row.bill_amount %} {% endfor %}
+			</tbody>
+			<tfoot>
+				<tr>
+					<td>Total</td>
+					<td colspan="2">{{ total }} EGP</td>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+</div>
